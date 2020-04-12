@@ -1,0 +1,88 @@
+{% load static %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap441/css/bootstrap.min.css' %}"
+    />
+  </head>
+  <style>
+    .asteriskField {
+      display: none;
+    }
+    .form-control-file {
+      background-color: rgb(162, 162, 252);
+    }
+    label {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  </style>
+  <body>
+    <header></header>
+    <main class="container pt-2">
+      <div class="row">
+        <div class="col-md-3 col-lg-3 mb-2">
+          <div class="card sticky-top">
+            <h3 class="card-header text-center">
+              {% if user.username %}
+              <p><a href="">@{{ request.user.username }}</a></p>
+              {% else %}
+              <p><strong>profile</strong></p>
+              {% endif %}
+            </h3>
+
+            <div class="card-body text-center img-thumbnail">
+              {% if request.user.user_profile.profile_pic %}
+              <img
+                src="{{ request.user.user_profile.profile_pic.url }}"
+                class="rounded-circle m-2"
+                alt="image"
+                height="140"
+                width="140"
+              />
+              {% endif %}
+              <a
+                class="btn btn-info btn-outline-warning btn-sm btn-block"
+                href=""
+                >Edit Profile</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-9 col-lg-9">
+          <div class="jumbotron">
+            <p></p>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
+              praesentium eaque cumque perspiciatis ab soluta in consequuntur
+              fuga ea, ipsa dicta excepturi mollitia, eius nobis temporibus
+              harum eligendi dolorum quidem!
+            </p>
+          </div>
+          <div class="row">
+            <form enctype="multipart/form-data" method="POST">
+              {% csrf_token %} {{ form|crispy }}
+              <input
+                class="btn btn-primary btn-outline-warning btn-sm"
+                type="submit"
+                value="Save Profile"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{% static 'bootstrap441/js/jquery-3.4.1.js' %}"></script>
+    <script src="{% static 'bootstrap441/js/popper.js' %}"></script>
+    <script src="{% static 'bootstrap441/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
